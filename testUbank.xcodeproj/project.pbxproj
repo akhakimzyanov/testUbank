@@ -14,11 +14,11 @@
 		1C52989B1F3F132000517309 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C5298971F3F132000517309 /* LaunchScreen.storyboard */; };
 		1C52989C1F3F132000517309 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5298981F3F132000517309 /* main.m */; };
 		1C5298A01F3F13DE00517309 /* rates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C52989E1F3F13DE00517309 /* rates.plist */; };
-		1C5298A11F3F13DE00517309 /* transactions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C52989F1F3F13DE00517309 /* transactions.plist */; };
 		1C5298A51F3F145000517309 /* TUCurrencyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5298A41F3F145000517309 /* TUCurrencyModel.m */; };
 		1C5298A81F3F1E1300517309 /* TUTransactionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5298A71F3F1E1300517309 /* TUTransactionsModel.m */; };
 		1C5298AC1F3F26D600517309 /* TUProductsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5298AB1F3F26D600517309 /* TUProductsController.m */; };
 		1C5298AF1F3F270900517309 /* TUTransactionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5298AE1F3F270900517309 /* TUTransactionsController.m */; };
+		1C5298B01F4067C200517309 /* transactions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C52989F1F3F13DE00517309 /* transactions.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,7 +190,7 @@
 				1C52989B1F3F132000517309 /* LaunchScreen.storyboard in Resources */,
 				1C52989A1F3F132000517309 /* Info.plist in Resources */,
 				1C5298881F3F12A800517309 /* Main.storyboard in Resources */,
-				1C5298A11F3F13DE00517309 /* transactions.plist in Resources */,
+				1C5298B01F4067C200517309 /* transactions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

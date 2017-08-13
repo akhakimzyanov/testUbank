@@ -8,11 +8,6 @@
 
 #import "TUTransactionsController.h"
 
-@interface TUTransactionsController ()
-
-@end
-
-
 @implementation TUTransactionsController
 
 #pragma mark - View Init Methods

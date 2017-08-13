@@ -9,6 +9,9 @@
 #import "TUProductsController.h"
 
 @interface TUProductsController ()
+{
+    UIActivityIndicatorView *activityIndicator;
+}
 
 @end
 
@@ -20,7 +23,14 @@
 {
     [super viewDidLoad];
     
-    [TUTransactionsModel shared];
+    activityIndicator = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIBarButtonItem *barButton = [UIBarButtonItem.alloc initWithCustomView:activityIndicator];
+    self.navigationItem.rightBarButtonItem = barButton;
+    [activityIndicator startAnimating];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [TUTransactionsModel.shared loadTransactions];
+    });
 }
 
 
@@ -39,6 +49,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        [activityIndicator stopAnimating];
     });
 }
 

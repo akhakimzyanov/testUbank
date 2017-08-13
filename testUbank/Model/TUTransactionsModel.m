@@ -37,11 +37,7 @@
         if (!instance) {
             instance = TUTransactionsModel.new;
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                [instance getTransactionsFromDocument];
-                
-                instance.currencyModel = TUCurrencyModel.new;
-            });
+            instance.currencyModel = TUCurrencyModel.new;
         }
     }
     
@@ -149,12 +145,12 @@
 
 
 #pragma mark - Work With Coming Data
-- (void)getTransactionsFromDocument
+- (void)loadTransactions
 {
     NSString *transactionPath = [NSBundle.mainBundle pathForResource:@"transactions" ofType:@"plist"];
-    
+        
     NSArray *transactionContent = [NSArray arrayWithContentsOfFile:transactionPath];
-    
+        
     [self workWithTransactionsContent:transactionContent];
 }
 
@@ -164,11 +160,16 @@
     NSMutableDictionary *transactions = NSMutableDictionary.new;
     
     for (NSDictionary *trans in transactionsContent) {
-        if (transactions[trans[@"sku"]] == nil) {
-            transactions[trans[@"sku"]] = NSMutableArray.new;
+        if (trans[@"sku"] != nil && [trans[@"sku"] isKindOfClass:NSString.class]
+            && trans[@"currency"] != nil && [trans[@"currency"] isKindOfClass:NSString.class]
+            && trans[@"amount"] != nil && [trans[@"amount"] floatValue] > 0) {
+            
+            if (transactions[trans[@"sku"]] == nil) {
+                transactions[trans[@"sku"]] = NSMutableArray.new;
+            }
+            
+            [transactions[trans[@"sku"]] addObject:trans];
         }
-        
-        [transactions[trans[@"sku"]] addObject:trans];
     }
     
     self.productsSKU = transactions.copy;

@@ -8,11 +8,6 @@
 
 #import "TUAppDelegate.h"
 
-@interface TUAppDelegate ()
-
-@end
-
-
 @implementation TUAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

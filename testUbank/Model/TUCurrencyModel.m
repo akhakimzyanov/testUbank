@@ -57,44 +57,46 @@
     NSMutableArray *currencyNotFound = NSMutableArray.new;
     
     for (NSDictionary *rate in ratesContent) {
-        NSString *from = rate[@"from"];
-        NSString *to = rate[@"to"];
-        
-        float value = [rate[@"rate"] floatValue];
-        
-        if ([to isEqualToString:@"GBP"]) {
-            currency[from] = @(value);
-        } else if ([from isEqualToString:@"GBP"] && currency[to] == nil) {
-            currency[to] = @(1.0/value);
-        } else if (![to isEqualToString:@"GBP"] && ![from isEqualToString:@"GBP"]) {
-            if (currency[to] != nil) {
-                currency[from] = @(value * [currency[to] floatValue]);
-            } else if (currency[from] != nil) {
-                currency[to] = @(1.0/value * [currency[from] floatValue]);
-            } else {
-                [currencyNotFound addObject:rate];
-            }
+        if (rate[@"from"] != nil && [rate[@"from"] isKindOfClass:NSString.class]
+            && rate[@"to"] != nil && [rate[@"to"] isKindOfClass:NSString.class]
+            && rate[@"rate"] != nil && [rate[@"rate"] floatValue] > 0) {
+            
+            [self addRateObject:rate toCurrency:currency andNotFound:currencyNotFound];
         }
     }
     
     if (currencyNotFound.count > 0) {
         for (NSDictionary *rate in currencyNotFound) {
-            NSString *from = rate[@"from"];
-            NSString *to = rate[@"to"];
-            
-            float value = [rate[@"rate"] floatValue];
-            
-            if (currency[to] != nil) {
-                currency[from] = @(value * [currency[to] floatValue]);
-            } else if (currency[from] != nil) {
-                currency[to] = @(1.0/value * [currency[from] floatValue]);
-            } else {
-                [currencyNotFound addObject:rate];
-            }
+            [self addRateObject:rate toCurrency:currency andNotFound:nil];
         }
     }
     
     self.currencyToGBP = currency.copy;
+}
+
+
+- (void)addRateObject:(NSDictionary *)rate toCurrency:(NSMutableDictionary *)currency andNotFound:(NSMutableArray *)currencyNotFound
+{
+    NSString *from = rate[@"from"];
+    NSString *to = rate[@"to"];
+    
+    float value = [rate[@"rate"] floatValue];
+    
+    if ([to isEqualToString:@"GBP"]) {
+        currency[from] = @(value);
+    } else if ([from isEqualToString:@"GBP"] && currency[to] == nil) {
+        currency[to] = @(1.0/value);
+    } else if (![to isEqualToString:@"GBP"] && ![from isEqualToString:@"GBP"]) {
+        if (currency[to] != nil) {
+            currency[from] = @(value * [currency[to] floatValue]);
+        } else if (currency[from] != nil) {
+            currency[to] = @(1.0/value * [currency[from] floatValue]);
+        } else {
+            if (currencyNotFound != nil) {
+                [currencyNotFound addObject:rate];
+            }
+        }
+    }
 }
 
 @end

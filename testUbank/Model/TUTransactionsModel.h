@@ -14,14 +14,16 @@
 
 + (instancetype)shared;
 
-- (NSInteger)getSkuProductsCount;
+- (void)loadTransactions;
+
+@property (nonatomic, getter=getSkuProductsCount, readonly) NSInteger skuProductsCount;
 - (NSDictionary *)getSkuProduct:(NSInteger)index;
 
 @property (nonatomic) NSInteger currentProductIndex;
 
-- (NSString *)currentProductName;
-- (NSInteger)getCurrentProductTransactionsCount;
+@property (nonatomic, readonly, copy) NSString *currentProductName;
+@property (nonatomic, getter=getCurrentProductTransactionsCount, readonly) NSInteger currentProductTransactionsCount;
 - (NSDictionary *)getTransaction:(NSInteger)index;
-- (NSString *)getCurrentProductAmount;
+@property (nonatomic, getter=getCurrentProductAmount, readonly, copy) NSString *currentProductAmount;
 
 @end
